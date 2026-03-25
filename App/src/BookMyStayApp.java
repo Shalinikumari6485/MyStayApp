@@ -1,5 +1,5 @@
 /**
- * Use Case 5:Booking Request (First-Come-First-Served)
+ * Use Case 6:Reservation Confirmation & Room Allocation
  */
 
 import java.util.*;
@@ -13,46 +13,90 @@ public class BookMyStayApp {
             this.guestName = guestName;
             this.roomType = roomType;
         }
+
         public String getGuestName() {
             return guestName;
         }
+
         public String getRoomType() {
             return roomType;
         }
     }
-    static class BookingRequestQueue {
-        private Queue<Reservation> requestQueue;
 
-        public BookingRequestQueue() {
-            requestQueue = new LinkedList<>();
+    static class RoomInventory {
+        private Map<String, Integer> availability;
+
+        public RoomInventory() {
+            availability = new HashMap<>();
+            availability.put("Single", 2);
+            availability.put("Double", 1);
+            availability.put("Suite", 1);
         }
-        public void addRequest(Reservation reservation) {
-            requestQueue.offer(reservation);
+        public int getAvailable(String type) {
+            return availability.getOrDefault(type, 0);
         }
-        public Reservation getNextRequest() {
-            return requestQueue.poll();
+        public void decrease(String type) {
+            availability.put(type, availability.get(type) - 1);
         }
-        public boolean hasPendingRequests() {
-            return !requestQueue.isEmpty();
+    }
+
+    static class BookingRequestQueue {
+        private Queue<Reservation> queue = new LinkedList<>();
+
+        public void add(Reservation r) {
+            queue.offer(r);
+        }
+
+        public Reservation next() {
+            return queue.poll();
+        }
+
+        public boolean hasRequests() {
+            return !queue.isEmpty();
+        }
+    }
+
+    static class RoomAllocationService {
+
+        private Set<String> allocatedRoomIds = new HashSet<>();
+        private Map<String, Integer> roomCounters = new HashMap<>();
+
+        public void allocateRoom(Reservation r, RoomInventory inventory) {
+            String type = r.getRoomType();
+            if (inventory.getAvailable(type) > 0) {
+
+                String roomId = generateRoomId(type);
+
+                allocatedRoomIds.add(roomId);
+                inventory.decrease(type);
+
+                System.out.println("Booking confirmed for Guest: "
+                        + r.getGuestName() + ", Room ID: " + roomId);
+            } else {
+                System.out.println("No rooms available for " + type + " for Guest: " + r.getGuestName());
+            }
+        }
+        private String generateRoomId(String type) {
+            int count = roomCounters.getOrDefault(type, 0) + 1;
+            roomCounters.put(type, count);
+            return type + "-" + count;
         }
     }
 
     public static void main(String[] args) {
 
-        System.out.println("Booking Request Queue");
-        BookingRequestQueue bookingQueue = new BookingRequestQueue();
+        System.out.println("Room Allocation Processing");
+        BookingRequestQueue queue = new BookingRequestQueue();
 
-        Reservation r1 = new Reservation("Abhi", "Single");
-        Reservation r2 = new Reservation("Subha", "Double");
-        Reservation r3 = new Reservation("Vanmathi", "Suite");
+        queue.add(new Reservation("Abhi", "Single"));
+        queue.add(new Reservation("Subha", "Single"));
+        queue.add(new Reservation("Vanmathi", "Suite"));
 
-        bookingQueue.addRequest(r1);
-        bookingQueue.addRequest(r2);
-        bookingQueue.addRequest(r3);
-        while (bookingQueue.hasPendingRequests()) {
-            Reservation r = bookingQueue.getNextRequest();
-            System.out.println("Processing booking for Guest: "
-                    + r.getGuestName() + ", Room Type: " + r.getRoomType());
+        RoomInventory inventory = new RoomInventory();
+        RoomAllocationService service = new RoomAllocationService();
+        while (queue.hasRequests()) {
+            Reservation r = queue.next();
+            service.allocateRoom(r, inventory);
         }
     }
 }
