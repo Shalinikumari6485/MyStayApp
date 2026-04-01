@@ -1,192 +1,124 @@
-🏨 BookMyStayApp
+# 🏨 BookMyStayApp
 Hotel Booking Management System (OOP + DSA + System Design)
 
-🎯 Objective
+---
 
+## 🎯 Objective
 The objective of this project is to design and implement a Hotel Booking Management System that demonstrates:
-Core Object-Oriented Programming (OOP) concepts
-Use of Data Structures (Queue, Stack, List, Map)
-Real-world system features like:
-Booking
-Allocation
-Cancellation
-Add-on services
-Reporting
-Validation
-Concurrency
-Data Persistence
+
+- OOP concepts
+- Data Structures (Queue, Stack, List, Map)
+- Real-world features:
+    - Booking
+    - Allocation
+    - Cancellation
+    - Add-on services
+    - Reporting
+    - Validation
+    - Concurrency
+    - Data Persistence
 
 👉 The system ensures:
+- Fair booking using FIFO
+- Safe room allocation (no double booking)
+- Error handling and validation
+- Thread-safe operations
+- Data recovery after restart
 
-Fair booking using FIFO
-Safe room allocation (no double booking)
-Error handling and validation
-Thread-safe operations
-Data recovery after restart
+---
 
-⚙️ Project Procedure (Step-by-Step)
+## ⚙️ Project Procedure
 
-Application Start
-System initializes using main() method
-Displays welcome message
-Room Definition
-Different room types created:
-Single
-Double
-Suite
-Room Inventory Setup
-Initial availability stored in RoomInventory
-Room Search
-User checks available rooms
-Only available rooms are displayed
-Booking Request
-User submits booking request
-Requests stored in Queue (FIFO)
-Room Allocation
-Requests processed in order
-Unique Room ID assigned
-Inventory updated
-Add-On Services
-Optional services added:
-Breakfast
-Spa
-Cost calculated separately
-Booking History
-Confirmed bookings stored in list
-Used for reporting
-Validation & Error Handling
-Invalid inputs checked
-Custom exception used
-Cancellation & Rollback
-Booking cancelled safely
-Inventory restored
-Stack used for rollback tracking
-Concurrent Booking
-Multiple users simulated using threads
-Synchronization ensures:
-No race condition
-Safe allocation
-Data Persistence
-Inventory saved to file
-Reloaded on restart
+1. Application starts using `main()`
+2. Room types created (Single, Double, Suite)
+3. Inventory initialized
+4. User searches rooms
+5. Booking request added to Queue (FIFO)
+6. Room allocated with unique ID
+7. Add-on services added
+8. Booking stored in history
+9. Validation & error handling applied
+10. Cancellation with rollback
+11. Concurrent booking using threads
+12. Data saved & loaded from file
 
+---
 
-🔄 Flow of Program
+## 🔄 Flow of Program
 
-Start Application
-        ↓
-Initialize Inventory
-        ↓
-User Searches Rooms
-        ↓
-User Sends Booking Request
-        ↓
-Queue Stores Requests (FIFO)
-        ↓
-Room Allocation Service
-        ↓
-Booking Confirmed (Room ID Generated)
-        ↓
-Add-On Services (Optional)
-        ↓
-Booking Stored in History
-        ↓
-(Admin can View Reports)
-        ↓
-Cancellation (if needed)
-        ↓
-Rollback + Inventory Restore
-        ↓
-Concurrent Processing (Threads)
-        ↓
-Save Data to File
-        ↓
-Restart → Load Data
-        ↓
+Start  
+↓  
+Initialize Inventory  
+↓  
+Search Rooms  
+↓  
+Booking Request  
+↓  
+Queue (FIFO)  
+↓  
+Room Allocation  
+↓  
+Booking Confirmed  
+↓  
+Add-On Services  
+↓  
+Booking History  
+↓  
+Cancellation (if needed)  
+↓  
+Rollback  
+↓  
+Concurrency  
+↓  
+Save Data  
+↓  
+Load Data  
+↓  
 End
 
+---
 
-🧩 Use Case Descriptions (Short & Simple)
+## 🧩 Use Cases
 
-✅ Use Case 1: Application Entry
-Starts system
-Displays welcome message
-✅ Use Case 2–3: Room & Inventory
-Defines room types
-Stores availability
-✅ Use Case 4: Room Search
-Shows available rooms
-Read-only operation
-✅ Use Case 5: Booking Request (Queue)
-FIFO order maintained
-Fair booking system
-✅ Use Case 6: Room Allocation
-Unique room ID assigned
-Inventory updated
-No double booking
-✅ Use Case 7: Add-On Services
-Extra services added
-No impact on core booking
-✅ Use Case 8: Booking History
-Stores confirmed bookings
-Used for reports
-✅ Use Case 9: Validation
-Checks input
-Prevents invalid bookings
-✅ Use Case 10: Cancellation
-Booking cancelled
-Inventory restored
-Stack used for rollback
-✅ Use Case 11: Concurrency
-Multiple users (threads)
-Synchronization used
-✅ Use Case 12: Persistence
-Data saved in file
-Loaded after restart
+- Use Case 1: Application Entry
+- Use Case 2–3: Room & Inventory
+- Use Case 4: Room Search
+- Use Case 5: Booking Request (Queue)
+- Use Case 6: Room Allocation
+- Use Case 7: Add-On Services
+- Use Case 8: Booking History
+- Use Case 9: Validation
+- Use Case 10: Cancellation
+- Use Case 11: Concurrency
+- Use Case 12: Persistence
 
-🧠 Concepts Used
+---
 
-🔹 OOP Concepts
-Classes & Objects
-Encapsulation
-Abstraction
-Modular Design
-🔹 Data Structures
-Queue → Booking requests
-Stack → Cancellation rollback
-List → Booking history
-Map → Inventory & mappings
-🔹 Advanced Concepts
-Exception Handling
-Multithreading
-Synchronization
-File Handling
+## 🧠 Concepts Used
 
+### OOP
+- Classes & Objects
+- Encapsulation
+- Abstraction
 
-🔥 Key Features
+### Data Structures
+- Queue → Booking
+- Stack → Rollback
+- List → History
+- Map → Inventory
 
-✔ FIFO Booking System
-✔ Thread-safe allocation
-✔ No double booking
-✔ Rollback support
-✔ Add-on flexibility
-✔ Reporting system
-✔ Persistent storage
+### Advanced
+- Exception Handling
+- Multithreading
+- Synchronization
+- File Handling
 
-🧪 Sample Output
-Booking confirmed for Guest: Abhi, Room ID: Single-1
-Booking confirmed for Guest: Subha, Room ID: Double-1
+---
 
-Add-On Service Selection
-Total Add-On Cost: 1500.0
+## 📌 Conclusion
+This project demonstrates a real-world hotel booking system with:
 
-Booking History Report
-Guest: Abhi, Room Type: Single
+✔ Safe design  
+✔ Scalable architecture  
+✔ Proper data handling
 
-Booking cancelled successfully
-Inventory restored
-
-Concurrent Booking Simulation completed
-
-System Recovery
-Inventory loaded successfully
